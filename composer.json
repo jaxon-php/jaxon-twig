@@ -1,0 +1,27 @@
+{
+    "name": "jaxon-php/jaxon-twig",
+    "type": "library",
+    "description": "Jaxon view renderer for Twig templates",
+    "authors": [
+        {"name": "Thierry Feuzeu"}
+    ],
+    "homepage": "https://github.com/jaxon-php/jaxon-twig",
+    "license": "BSD-3-Clause",
+    "keywords": ["Jaxon", "Xajax", "Ajax", "PHP", "Template", "View", "Twig"],
+    "support": {
+        "issues": "https://github.com/jaxon-php/jaxon-twig/issues",
+        "source": "https://github.com/jaxon-php/jaxon-twig"
+    },
+    "require": {
+        "jaxon-php/jaxon-sentry": "~2.0",
+        "twig/twig": "~1.0|~2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Jaxon\\Twig\\": "src/"
+        },
+        "files": [
+            "src/start.php"
+        ]
+    }
+}
