@@ -7,42 +7,7 @@ use Jaxon\Sentry\View\Store;
 
 class View implements ViewInterface
 {
-    /**
-     * The RainTpl template renderer
-     *
-     * @var RainTpl
-     */
-    protected $xRenderer = null;
-
-    /**
-     * The template directories
-     *
-     * @var array
-     */
-    protected $aDirectories = array();
-
-    /**
-     * The view constructor
-     * 
-     * @return
-     */
-    public function __construct()
-    {
-    }
-
-    /**
-     * Add a namespace to this view renderer
-     *
-     * @param string        $sNamespace         The namespace name
-     * @param string        $sDirectory         The namespace directory
-     * @param string        $sExtension         The extension to append to template names
-     *
-     * @return void
-     */
-    public function addNamespace($sNamespace, $sDirectory, $sExtension = '')
-    {
-        $this->aDirectories[$sNamespace] = array('path' => $sDirectory, 'ext' => $sExtension);
-    }
+    use \Jaxon\Sentry\View\Namespaces;
 
     /**
      * Render a view
@@ -61,18 +26,14 @@ class View implements ViewInterface
         {
             $sViewName = substr($sViewName, $nNsLen);
         }
-        // View extension
-        $sDirectory = '';
-        $sExtension = '';
-        if(key_exists($sNamespace, $this->aDirectories))
-        {
-            $sDirectory = rtrim($this->aDirectories[$sNamespace]['path'], '/') . '/';
-            $sExtension = '.' . ltrim($this->aDirectories[$sNamespace]['ext'], '.');
-        }
+
+        // View namespace
+        $this->setCurrentNamespace($sNamespace);
+
         // Render the template
-        $xRenderer = new \Twig_Environment(new \Twig_Loader_Filesystem($sDirectory), array(
+        $xRenderer = new \Twig_Environment(new \Twig_Loader_Filesystem($this->sDirectory), array(
             'cache' => __DIR__ . '/../cache',
         ));
-        return trim($xRenderer->render($sViewName . $sExtension, $store->getViewData()), " \t\n");
+        return trim($xRenderer->render($sViewName . $this->sExtension, $store->getViewData()), " \t\n");
     }
 }
