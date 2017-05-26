@@ -34,7 +34,7 @@ Foreach directory containing Twig templates, add an entry to the `app.views` sec
 In the application classes, this is how to render a view in this directory.
 
 ```php
-    $this->view()->render('/sub/dir/file');
+    $this->view()->render('demo::/sub/dir/file');
 ```
 
 Read the [views documentation](https://www.jaxon-php.org/docs/armada/views.html) to learn more about views.
