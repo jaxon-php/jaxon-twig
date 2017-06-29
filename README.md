@@ -37,4 +37,4 @@ In the application classes, this is how to render a view in this directory.
     $this->view()->render('demo::/sub/dir/file');
 ```
 
-Read the [views documentation](https://www.jaxon-php.org/docs/armada/views.html) to learn more about views.
+Read the [documentation](https://www.jaxon-php.org/docs/armada/views.html) to learn more about views in Jaxon applications.
