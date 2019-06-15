@@ -1,5 +1,5 @@
 <?php
 
-jaxon()->sentry()->addViewRenderer('twig', function () {
+jaxon()->di()->getViewManager()->addRenderer('twig', function () {
     return new Jaxon\Twig\View();
 });

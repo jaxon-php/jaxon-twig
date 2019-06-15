@@ -13,7 +13,7 @@
         "source": "https://github.com/jaxon-php/jaxon-twig"
     },
     "require": {
-        "jaxon-php/jaxon-sentry": "~2.0",
+        "jaxon-php/jaxon-core": "dev-develop",
         "twig/twig": "~1.0|~2.0"
     },
     "provide": {

@@ -2,18 +2,21 @@
 
 namespace Jaxon\Twig;
 
-use Jaxon\Sentry\Interfaces\View as ViewInterface;
-use Jaxon\Sentry\View\Store;
+use Jaxon\Contracts\View as ViewContract;
+use Jaxon\Ui\View\Store;
 
-class View implements ViewInterface
+use Twig_Environment;
+use Twig_Loader_Filesystem;
+
+class View implements ViewContract
 {
-    use \Jaxon\Sentry\View\Namespaces;
+    use \Jaxon\Features\View\Namespaces;
 
     /**
      * Render a view
-     * 
+     *
      * @param Store         $store        A store populated with the view data
-     * 
+     *
      * @return string        The string representation of the view
      */
     public function render(Store $store)
@@ -31,7 +34,7 @@ class View implements ViewInterface
         $this->setCurrentNamespace($sNamespace);
 
         // Render the template
-        $xRenderer = new \Twig_Environment(new \Twig_Loader_Filesystem($this->sDirectory), array(
+        $xRenderer = new Twig_Environment(new Twig_Loader_Filesystem($this->sDirectory), array(
             'cache' => __DIR__ . '/../cache',
         ));
         return trim($xRenderer->render($sViewName . $this->sExtension, $store->getViewData()), " \t\n");
