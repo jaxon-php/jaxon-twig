@@ -3,7 +3,7 @@
 namespace Jaxon\Twig;
 
 use Jaxon\Contracts\View as ViewContract;
-use Jaxon\Ui\View\Store;
+use Jaxon\Utils\View\Store;
 
 use Twig_Environment;
 use Twig_Loader_Filesystem;
