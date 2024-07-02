@@ -13,11 +13,11 @@
         "source": "https://github.com/jaxon-php/jaxon-twig"
     },
     "require": {
-        "jaxon-php/jaxon-sentry": "~2.0",
+        "jaxon-php/jaxon-core": "v5.x-dev",
         "twig/twig": "~1.0|~2.0"
     },
     "provide": {
-        "jaxon-php/jaxon-view-twig": "~2.0"
+        "jaxon-php/jaxon-view-twig": "v5.x-dev"
     },
     "autoload": {
         "psr-4": {
