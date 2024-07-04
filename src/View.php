@@ -65,13 +65,17 @@ class View implements ViewInterface
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
             self::$xRenderer->addFilter(new TwigFilter('jxnShow',
                 fn(JxnCall $xJxnCall) => attr()->show($xJxnCall), ['is_safe' => ['html']]));
-            self::$xRenderer->addFilter(new TwigFilter('jxnTarget',
-                fn(string $name = '') => attr()->target($name), ['is_safe' => ['html']]));
-            self::$xRenderer->addFilter(new TwigFilter('jxnOn',
-                fn(string|array $on, JsExpr $xJsExpr, array $options = []) =>
-                    attr()->on($on, $xJsExpr, $options), ['is_safe' => ['html']]));
 
             // Functions for custom Jaxon attributes
+            self::$xRenderer->addFunction(new TwigFunction('jxnHtml',
+                fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
+            self::$xRenderer->addFunction(new TwigFunction('jxnShow',
+                fn(JxnCall $xJxnCall) => attr()->show($xJxnCall), ['is_safe' => ['html']]));
+            self::$xRenderer->addFunction(new TwigFunction('jxnTarget',
+                fn(string $name = '') => attr()->target($name), ['is_safe' => ['html']]));
+            self::$xRenderer->addFunction(new TwigFunction('jxnOn',
+                fn(string|array $on, JsExpr $xJsExpr, array $options = []) =>
+                    attr()->on($on, $xJsExpr, $options), ['is_safe' => ['html']]));
             self::$xRenderer->addFunction(new TwigFunction('jq', fn(...$aParams) => jq(...$aParams)));
             self::$xRenderer->addFunction(new TwigFunction('js', fn(...$aParams) => js(...$aParams)));
             self::$xRenderer->addFunction(new TwigFunction('rq', fn(...$aParams) => rq(...$aParams)));
