@@ -25,63 +25,63 @@ class View implements ViewInterface
     /**
      * @var Twig|null
      */
-    private static ?Twig $xRenderer = null;
+    private ?Twig $xRenderer = null;
 
     /**
      * @var FilesystemLoader|null
      */
-    private static ?FilesystemLoader $xLoader = null;
+    private ?FilesystemLoader $xLoader = null;
 
     /**
      * @var array
      */
-    private static array $aExtensions = [];
+    private array $aExtensions = [];
 
     /**
      * @return FilesystemLoader
      */
-    private static function _loader(): FilesystemLoader
+    private function _loader(): FilesystemLoader
     {
-        if(!self::$xLoader)
+        if(!$this->xLoader)
         {
-            self::$xLoader = new FilesystemLoader([], '');
+            $this->xLoader = new FilesystemLoader([], '');
         }
-        return self::$xLoader;
+        return $this->xLoader;
     }
 
     /**
      * @return Twig
      */
-    private static function _renderer(): Twig
+    private function _renderer(): Twig
     {
-        if(!self::$xRenderer)
+        if(!$this->xRenderer)
         {
-            self::$xRenderer = new Twig(self::_loader(), [
+            $this->xRenderer = new Twig($this->_loader(), [
                 'cache' => __DIR__ . '/../cache',
             ]);
 
             // Filters for custom Jaxon attributes
-            self::$xRenderer->addFilter(new TwigFilter('jxnHtml',
+            $this->xRenderer->addFilter(new TwigFilter('jxnHtml',
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
-            self::$xRenderer->addFilter(new TwigFilter('jxnShow',
+            $this->xRenderer->addFilter(new TwigFilter('jxnShow',
                 fn(JxnCall $xJxnCall) => attr()->show($xJxnCall), ['is_safe' => ['html']]));
 
             // Functions for custom Jaxon attributes
-            self::$xRenderer->addFunction(new TwigFunction('jxnHtml',
+            $this->xRenderer->addFunction(new TwigFunction('jxnHtml',
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
-            self::$xRenderer->addFunction(new TwigFunction('jxnShow',
+            $this->xRenderer->addFunction(new TwigFunction('jxnShow',
                 fn(JxnCall $xJxnCall) => attr()->show($xJxnCall), ['is_safe' => ['html']]));
-            self::$xRenderer->addFunction(new TwigFunction('jxnTarget',
+            $this->xRenderer->addFunction(new TwigFunction('jxnTarget',
                 fn(string $name = '') => attr()->target($name), ['is_safe' => ['html']]));
-            self::$xRenderer->addFunction(new TwigFunction('jxnOn',
+            $this->xRenderer->addFunction(new TwigFunction('jxnOn',
                 fn(string|array $on, JsExpr $xJsExpr, array $options = []) =>
                     attr()->on($on, $xJsExpr, $options), ['is_safe' => ['html']]));
-            self::$xRenderer->addFunction(new TwigFunction('jq', fn(...$aParams) => jq(...$aParams)));
-            self::$xRenderer->addFunction(new TwigFunction('js', fn(...$aParams) => js(...$aParams)));
-            self::$xRenderer->addFunction(new TwigFunction('rq', fn(...$aParams) => rq(...$aParams)));
-            self::$xRenderer->addFunction(new TwigFunction('pm', fn() => pm()));
+            $this->xRenderer->addFunction(new TwigFunction('jq', fn(...$aParams) => jq(...$aParams)));
+            $this->xRenderer->addFunction(new TwigFunction('js', fn(...$aParams) => js(...$aParams)));
+            $this->xRenderer->addFunction(new TwigFunction('rq', fn(...$aParams) => rq(...$aParams)));
+            $this->xRenderer->addFunction(new TwigFunction('pm', fn() => pm()));
         }
-        return self::$xRenderer;
+        return $this->xRenderer;
     }
 
     /**
@@ -89,8 +89,8 @@ class View implements ViewInterface
      */
     public function addNamespace(string $sNamespace, string $sDirectory, string $sExtension = '')
     {
-        self::$aExtensions[$sNamespace] = '.' . ltrim($sExtension, '.');
-        self::_loader()->addPath($sDirectory, $sNamespace);
+        $this->aExtensions[$sNamespace] = '.' . ltrim($sExtension, '.');
+        $this->_loader()->addPath($sDirectory, $sNamespace);
     }
 
     /**
@@ -102,12 +102,12 @@ class View implements ViewInterface
         $sViewName = !$sNamespace ? $store->getViewName() :
             '@' . $sNamespace . '/' . $store->getViewName();
         $sViewName = str_replace('.', '/', $sViewName);
-        if(isset(self::$aExtensions[$sNamespace]))
+        if(isset($this->aExtensions[$sNamespace]))
         {
-            $sViewName .= self::$aExtensions[$sNamespace];
+            $sViewName .= $this->aExtensions[$sNamespace];
         }
 
         // Render the template
-        return trim(self::_renderer()->render($sViewName, $store->getViewData()), " \t\n");
+        return trim($this->_renderer()->render($sViewName, $store->getViewData()), " \t\n");
     }
 }
