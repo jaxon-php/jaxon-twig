@@ -12,6 +12,7 @@ use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 use function Jaxon\attr;
+use function Jaxon\jaxon;
 use function Jaxon\jq;
 use function Jaxon\js;
 use function Jaxon\pm;
@@ -80,6 +81,14 @@ class View implements ViewInterface
             $this->xRenderer->addFunction(new TwigFunction('js', fn(...$aParams) => js(...$aParams)));
             $this->xRenderer->addFunction(new TwigFunction('rq', fn(...$aParams) => rq(...$aParams)));
             $this->xRenderer->addFunction(new TwigFunction('pm', fn() => pm()));
+
+            // Functions for Jaxon js and CSS codes
+            $this->xRenderer->addFunction(new TwigFunction('jxnCss',
+                fn() => jaxon()->css(), ['is_safe' => ['html']]));
+            $this->xRenderer->addFunction(new TwigFunction('jxnJs',
+                fn() => jaxon()->js(), ['is_safe' => ['html']]));
+            $this->xRenderer->addFunction(new TwigFunction('jxnScript',
+                fn() => jaxon()->script(), ['is_safe' => ['html']]));
         }
         return $this->xRenderer;
     }
