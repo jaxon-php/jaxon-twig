@@ -65,7 +65,7 @@ class View implements ViewInterface
             $this->xRenderer->addFilter(new TwigFilter('jxnHtml',
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
             $this->xRenderer->addFilter(new TwigFilter('jxnShow',
-                fn(JxnCall $xJxnCall) => attr()->show($xJxnCall), ['is_safe' => ['html']]));
+                fn(JxnCall $xJxnCall, string $item = '') => attr()->show($xJxnCall, $item), ['is_safe' => ['html']]));
             $this->xRenderer->addFilter(new TwigFilter('jxnOn',
                 fn(JsExpr $xJsExpr, string|array $on, array $options = []) =>
                     attr()->on($on, $xJsExpr, $options), ['is_safe' => ['html']]));
@@ -77,7 +77,7 @@ class View implements ViewInterface
             $this->xRenderer->addFunction(new TwigFunction('jxnHtml',
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
             $this->xRenderer->addFunction(new TwigFunction('jxnShow',
-                fn(JxnCall $xJxnCall) => attr()->show($xJxnCall), ['is_safe' => ['html']]));
+                fn(JxnCall $xJxnCall, string $item = '') => attr()->show($xJxnCall, $item), ['is_safe' => ['html']]));
             $this->xRenderer->addFunction(new TwigFunction('jxnOn',
                 fn(string|array $on, JsExpr $xJsExpr, array $options = []) =>
                     attr()->on($on, $xJsExpr, $options), ['is_safe' => ['html']]));
