@@ -64,8 +64,8 @@ class View implements ViewInterface
             // Filters for custom Jaxon attributes
             $this->xRenderer->addFilter(new TwigFilter('jxnHtml',
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
-            $this->xRenderer->addFilter(new TwigFilter('jxnShow',
-                fn(JxnCall $xJxnCall, string $item = '') => attr()->show($xJxnCall, $item), ['is_safe' => ['html']]));
+            $this->xRenderer->addFilter(new TwigFilter('jxnBind',
+                fn(JxnCall $xJxnCall, string $item = '') => attr()->bind($xJxnCall, $item), ['is_safe' => ['html']]));
             $this->xRenderer->addFilter(new TwigFilter('jxnOn',
                 fn(JsExpr $xJsExpr, string|array $on) => attr()->on($on, $xJsExpr), ['is_safe' => ['html']]));
             $this->xRenderer->addFilter(new TwigFilter('jxnClick',
@@ -76,8 +76,8 @@ class View implements ViewInterface
             // Functions for custom Jaxon attributes
             $this->xRenderer->addFunction(new TwigFunction('jxnHtml',
                 fn(JxnCall $xJxnCall) => attr()->html($xJxnCall), ['is_safe' => ['html']]));
-            $this->xRenderer->addFunction(new TwigFunction('jxnShow',
-                fn(JxnCall $xJxnCall, string $item = '') => attr()->show($xJxnCall, $item), ['is_safe' => ['html']]));
+            $this->xRenderer->addFunction(new TwigFunction('jxnBind',
+                fn(JxnCall $xJxnCall, string $item = '') => attr()->bind($xJxnCall, $item), ['is_safe' => ['html']]));
             $this->xRenderer->addFunction(new TwigFunction('jxnOn',
                 fn(string|array $on, JsExpr $xJsExpr) => attr()->on($on, $xJsExpr), ['is_safe' => ['html']]));
             $this->xRenderer->addFunction(new TwigFunction('jxnClick',
