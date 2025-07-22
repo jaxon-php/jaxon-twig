@@ -128,7 +128,7 @@ class View implements ViewInterface
     /**
      * @inheritDoc
      */
-    public function addNamespace(string $sNamespace, string $sDirectory, string $sExtension = '')
+    public function addNamespace(string $sNamespace, string $sDirectory, string $sExtension = ''): void
     {
         $this->aExtensions[$sNamespace] = '.' . ltrim($sExtension, '.');
         $this->_loader()->addPath($sDirectory, $sNamespace);
